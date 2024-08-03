@@ -14,6 +14,9 @@
     <title></title>
     <script src="https://telegram.org/js/telegram-web-app.js?1"></script>
     <script>
+        Telegram.WebApp.ready();
+        var data = Telegram.WebApp.initDataUnsafe || {};
+        Telegram.showAlert("Success");
         function setThemeClass() {
             document.documentElement.className = Telegram.WebApp.colorScheme;
         }
