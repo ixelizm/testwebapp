@@ -1,26 +1,286 @@
-<html ng-app="custom-webapp-ui" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
   <head>
-    <!-- Load the Telegram Library -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!--Load the AngularJS Library-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="MobileOptimized" content="176" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title></title>
+    <script src="https://telegram.org/js/telegram-web-app.js?1"></script>
     <script>
-      //initialize the AngularJS stuff...
-      angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope) {
-        //init our slider values that we will display
-        $scope.foods = [
-                { name: "fruits", value: 5 },
-                { name: "vegetables", value: 5 },
-                { name: "meat", value: 5 },
-                { name: "dairy", value: 5 }
-            ];
-      });
+        function setThemeClass() {
+            document.documentElement.className = Telegram.WebApp.colorScheme;
+        }
+        Telegram.WebApp.onEvent('themeChanged', setThemeClass);
+        setThemeClass();
+
+        function webviewExpand() {
+          Telegram.WebApp.expand();
+        }
+
+        function webviewClose() {
+          Telegram.WebApp.close();
+        }
+
+        Telegram.WebApp.MainButton
+        .setText('CLOSE WEBVIEW')
+        .show()
+        .onClick(function(){ webviewClose(); });
+
+    Telegram.WebApp.onEvent('themeChanged', function() {
+        document.querySelector('#themeData').innerHTML = JSON.stringify(Telegram.WebApp.themeParams, null, 2);
+    });
+
     </script>
+    <style>
+      /* Variabes */
+/* Mixin's */
+body {
+    background: #82d2e5;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+}
+h1, h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 1em;
+    text-transform: uppercase;
+    color: brown;
+}
+
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+#seconds, #tens {
+    font-size: 2em;
+}
+button {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -khtml-border-radius: 5px;
+    background: #82d2e5;
+    color: #fff;
+    border: solid 1px #fff;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 5px 5px;
+    width: 100px;
+    margin: 5px;
+    outline: none;
+}
+button:hover {
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    background: #fff;
+    border: solid 1px #fff;
+    color: #82d2e5;
+}
+#container {
+    width: 230px;
+    margin: 5px auto;
+}
+#container:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+[data-view="card"] {
+    transform: rotateY(180deg);
+    width: 60px;
+    height: 75px;
+    border: solid 1px #d3cece;
+    border-radius: 5px;
+    float: left;
+    margin: 2px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f3f3f3 22px, #fff 22px, #fff 24px, transparent 24px, transparent 67px, #fff 67px, #fff 69px, transparent 69px), linear-gradient(225deg, #f3f3f3 22px, #fff 22px, #fff 24px, transparent 24px, transparent 67px, #fff 67px, #fff 69px, transparent 69px) 0 64px;
+    background-color: #f3f3f3;
+    background-size: 64px 128px;
+}
+.flipped {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+    transform: rotateY(0deg);
+}
+.reverse {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+    transform: rotateY(180deg);
+}
+.correct {
+    opacity: 0.5;
+    cursor: default;
+    transform-style: preserve-3d;
+    position: relative;
+    transform: rotateY(0deg);
+}
+/* Icons */
+.correct[data-item="sass"], .flipped[data-item="sass"] {
+    background: url("sass.jpg") left center no-repeat #fff;
+    background-size: contain;
+}
+.correct[data-item="gulp"], .flipped[data-item="gulp"] {
+    background: url("gulp.jpg") left center no-repeat #fff;
+    background-size: contain;
+}
+.correct[data-item="grunt"], .flipped[data-item="grunt"] {
+    background: url("grunt.jpg") left center no-repeat #fff;
+    background-size: contain;
+}
+.correct[data-item="git"], .flipped[data-item="git"] {
+    background: url("git.jpg") left center no-repeat #fff;
+    background-size: contain;
+}
+.correct[data-item="css"], .flipped[data-item="css"] {
+    background: url("css.jpg") left center no-repeat #fff;
+    background-size: contain;
+}
+.correct[data-item="logo11"], .flipped[data-item="logo11"] {
+    background: url("logo11.jpg") left center no-repeat #fff;
+    background-size: contain;
+}
+
+
+
+    </style>
   </head>
-  <body ng-controller="CustomUIController">
-    <div ng-repeat="food in foods">
-      <div style="width: 100px; display: inline-block">{{food.name}} : {{food.value}}</div>
-      <input style="display: inline-block" type="range" min="1" max="10" ng-model="food.value" value="{{food.value}}">
+  <body>
+    <div class="wrapper">
+      <h1>Pairs Game</h1>
+      <p><span id="seconds">00</span>:<span id="tens">00</span></p>
+      <p id ="text"></p>
+      <div id="container">
+      </div>
+      <button onclick="webviewExpand();">Expand</button>
     </div>
+
+    <script type="text/javascript">
+      var myCards = document.getElementById('container');
+var resultsArray = [];
+var counter = 0;
+var text = document.getElementById('text');
+var seconds = 00; 
+var tens = 00; 
+var appendTens = document.getElementById("tens");
+var appendSeconds = document.getElementById("seconds");
+var Interval ;
+var images = [
+  'sass', 
+  'git', 
+  'gulp', 
+  'css', 
+  'grunt',
+  'logo11'
+];
+
+var clone = images.slice(0); // duplicate array
+var cards = images.concat(clone); // merge to arrays 
+
+// Shufffel function
+function shuffle(o){
+  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i],   o[i] = o[j], o[j] = x);
+  return o;
+}
+shuffle(cards);
+
+for (var i = 0; i < cards.length; i++) {
+  card = document.createElement('div');
+  card.dataset.item = cards[i];
+  card.dataset.view = "card";
+  myCards.appendChild(card);
+     
+  card.onclick = function () {
+   
+    if (this.className != 'flipped' && this.className != 'correct'){
+        this.className = 'flipped';
+        var result = this.dataset.item;
+        resultsArray.push(result);
+        clearInterval(Interval);
+        Interval = setInterval(startTimer, 10);
+    }
+  
+    if (resultsArray.length > 1) {
+
+      if (resultsArray[0] === resultsArray[1]) {
+        check("correct");
+        counter ++;
+        win();
+        resultsArray = [];
+      } else {
+        check("reverse");
+        resultsArray = [];
+      }
+      
+    }
+    
+  }
+   
+};
+
+
+var check = function(className) {
+  
+  var x = document.getElementsByClassName("flipped");
+  setTimeout(function() {
+
+    for(var i = (x.length - 1); i >= 0; i--) {
+      x[i].className = className;
+    }
+     
+  },500);
+   
+}
+
+var win = function () {
+  if(counter === images.length) {
+    clearInterval(Interval);
+    text.innerHTML = "Your time was " + seconds + ":" + tens;
+
+    Telegram.WebApp.showPopup({title: 'You Win..', message: `Your time was ${seconds}:${tens}`, buttons: [{text:'OK'},{text:'Close'}]});
+  } 
+}
+     
+function startTimer () {
+  tens++; 
+    
+  if(tens < 9){
+    appendTens.innerHTML = "0" + tens;
+  }
+    
+  if (tens > 9){
+    appendTens.innerHTML = tens;
+      
+  } 
+    
+  if (tens > 99) {
+    seconds++;
+    appendSeconds.innerHTML = "0" + seconds;
+    tens = 0;
+    appendTens.innerHTML = "0" + 0;
+  }
+    
+  if (seconds > 9){
+    appendSeconds.innerHTML = seconds;
+  }
+  
+}
+    </script>
   </body>
 </html>
