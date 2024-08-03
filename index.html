@@ -9,7 +9,12 @@
 <body>
     <h1 id="message">Yükleniyor...</h1>
 
-    
+    <!-- Bu alan input ve butonun eklenmesi için -->
+    <div id="inputContainer" style="display: none;">
+        <input type="text" id="userInput" placeholder="Bir şey yazın">
+        <button onclick="sendMessage()">Gönder</button>
+    </div>
+
     <script>
         window.addEventListener('load', () => {
             const telegram = window.Telegram.WebApp;
@@ -17,13 +22,21 @@
 
             const userId = telegram.initDataUnsafe?.user?.id;
             const messageElement = document.getElementById('message');
+            const inputContainer = document.getElementById('inputContainer');
 
             if (userId === 1310308056) {
                 messageElement.textContent = "Hoşgeldin, sahip!";
+                inputContainer.style.display = 'block';  // Input alanını göster
             } else {
                 messageElement.textContent = "Erişim izniniz yok";
             }
         });
+
+        function sendMessage() {
+            const input = document.getElementById('userInput').value;
+            telegram.showAlert(`Gönderilen mesaj: ${input}`);
+            // Burada input değerini bot'a veya başka bir yere gönderebilirsin
+        }
     </script>
 </body>
 </html>
